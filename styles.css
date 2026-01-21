@@ -1,62 +1,42 @@
 /* =========================
-   BASE / RESET
+   RESET + FONDO GLOBAL
    ========================= */
 * { box-sizing: border-box; }
-html, body { height: 100%; }
 
-:root{
-  --text: #111111;
-  --muted: #6f6f6f;
-
-  /* Fondo marfil */
-  --ivory: #f3eee4;
-
-  /* Ajustes finos */
-  --nav-gap: 64px;
-
-  /* Baja/sube el bloque de texto */
-  --hero-top: clamp(110px, 17.5vh, 195px);
-
-  /* Separación título → subtítulo */
-  --sub-gap: clamp(10px, 0.9vw, 14px);
-
-  /* BAJA la ilustración para dar “aire premium” (más distancia subtítulo → skyline) */
-  --img-bottom: clamp(0px, 0.4vh, 8px);
-
-  /* Tamaño ilustración */
-  --img-width: min(1120px, 92vw);
+html, body {
+  height: 100%;
+  margin: 0;
+  background: #f7f4ef; /* blanco roto uniforme en toda la pantalla */
 }
 
 body{
-  margin: 0;
-  background: var(--ivory);   /* marfil en toda la página */
-  color: var(--text);
+  color: #111111;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 /* =========================
-   NAV (arriba derecha)
+   NAV (arriba derecha, discreta)
    ========================= */
 .site-header{
   position: absolute;
   top: 0;
   right: 0;
-  padding: clamp(18px, 2.6vw, 36px) clamp(18px, 4vw, 58px);
+  padding: 34px 58px;
   z-index: 10;
 }
 
 .nav{
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: clamp(18px, 4vw, var(--nav-gap));
+  gap: 64px;
   flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .nav a{
-  color: var(--muted);
+  color: #6f6f6f;
   text-decoration: none;
-  font-size: clamp(16px, 1.2vw, 18px);
+  font-size: 18px;
   font-weight: 400;
   letter-spacing: 0.2px;
 }
@@ -64,58 +44,77 @@ body{
 .nav a:hover{ color: #333333; }
 
 /* =========================
-   HERO (tipo portada)
+   HERO “PORTADA” (REFERENCIA ABSOLUTA)
+   - Mucho aire arriba
+   - Texto centrado
+   - Ilustración baja con aire premium arriba y abajo
    ========================= */
 .hero{
-  position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  background: #f7f4ef;
   padding: 0 24px;
-  background: var(--ivory);   /* asegura marfil también dentro del hero */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Aire superior + texto centrado */
 .hero-content{
-  position: relative;
-  z-index: 2;
+  width: 100%;
   text-align: center;
-  padding-top: var(--hero-top);
+
+  /* Aire superior editorial (la clave del look “portada”) */
+  padding-top: 200px;
 }
 
+/* Título serif contenido (no enorme) */
 .hero-title{
   margin: 0;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 1.03;
-  font-size: clamp(46px, 5.3vw, 82px);
+  font-size: 74px;
 }
 
+/* Subtítulo gris con “respiración” */
 .hero-subtitle{
-  margin: var(--sub-gap) 0 0;
-  color: var(--muted);
+  margin: 18px 0 0;
+  color: #6f6f6f;
   font-weight: 400;
   line-height: 1.2;
-  font-size: clamp(18px, 2vw, 28px);
+  font-size: 26px;
 }
 
-/* Ilustración anclada abajo */
+/* Ilustración: BAJA, con aire premium arriba y MUCHO aire abajo */
 .hero-image{
-  position: absolute;
-  left: 50%;
-  bottom: var(--img-bottom);
-  transform: translateX(-50%);
-  width: var(--img-width);
+  width: min(1120px, 92vw);
   height: auto;
-  z-index: 1;
+  display: block;
+
+  /* Aire entre subtítulo e ilustración (premium) */
+  margin-top: 80px;
+
+  /* Aire inferior grande para efecto “póster” */
+  margin-bottom: 170px;
 }
 
 /* =========================
-   RESPONSIVE
+   RESPONSIVE (manteniendo composición)
    ========================= */
-@media (max-width: 520px){
-  :root{
-    --hero-top: 16vh;
-    --img-bottom: 0px;
-    --img-width: 92vw;
+@media (max-width: 900px){
+  .site-header{ padding: 26px 28px; }
+  .nav{ gap: 28px; }
+  .nav a{ font-size: 16px; }
+
+  .hero-content{ padding-top: 16vh; }
+
+  .hero-title{ font-size: clamp(42px, 8vw, 64px); }
+  .hero-subtitle{ font-size: clamp(18px, 3.2vw, 24px); }
+
+  .hero-image{
+    margin-top: 7vh;
+    margin-bottom: 14vh;
   }
 }
