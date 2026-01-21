@@ -1,40 +1,106 @@
 /* =========================
-   RESET + FONDO GLOBAL
+   WEBFONTS (bloqueo de tipografía)
+   ========================= */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400&display=swap");
+
+/* =========================
+   BASE / FONDO GLOBAL
    ========================= */
 * { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
 
-html, body {
-  height: 100%;
-  margin: 0;
-  background: #f7f4ef; /* blanco roto uniforme en toda la pantalla */
+:root{
+  /* Blanco roto de referencia (base) */
+  --bg: #f7f4ef;
+
+  /* Texto */
+  --text: #111111;
+  --muted: #6f6f6f;
 }
 
 body{
-  color: #111111;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Mejora consistencia de rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }
 
 /* =========================
-   NAV (arriba derecha, discreta)
+   HERO centrado
+   ========================= */
+.hero{
+  min-height: 100vh;
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* =========================
+   LIENZO EXACTO (2048x1365)
+   ========================= */
+.stage{
+  position: relative;
+  aspect-ratio: 2048 / 1365;
+
+  /* Se ajusta sin deformar: encaja por alto o ancho según viewport */
+  width: min(100vw, calc(100vh * (2048 / 1365)));
+  height: auto;
+
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* =========================
+   GRANO / PAPEL (para igualar la captura)
+   - Muy sutil, no “ruido digital”
+   ========================= */
+.stage::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* Grano fino con mezcla suave */
+  background:
+    radial-gradient(circle at 30% 20%, rgba(0,0,0,0.028), transparent 55%),
+    radial-gradient(circle at 70% 60%, rgba(0,0,0,0.020), transparent 58%),
+    repeating-radial-gradient(circle at 50% 50%,
+      rgba(0,0,0,0.015) 0px,
+      rgba(0,0,0,0.015) 1px,
+      rgba(255,255,255,0.0) 2px,
+      rgba(255,255,255,0.0) 4px
+    );
+  opacity: 0.35;              /* intensidad global del grano */
+  mix-blend-mode: multiply;   /* efecto “papel” */
+  z-index: 2;
+}
+
+/* =========================
+   NAV (según bbox medido)
+   - top: 140/1365 = 10.256%
+   - right: 134/2048 = 6.543%
    ========================= */
 .site-header{
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 34px 58px;
-  z-index: 10;
+  top: 10.256%;
+  right: 6.543%;
+  z-index: 5;
 }
 
 .nav{
   display: flex;
   gap: 64px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .nav a{
-  color: #6f6f6f;
+  color: var(--muted);
   text-decoration: none;
   font-size: 18px;
   font-weight: 400;
@@ -44,77 +110,71 @@ body{
 .nav a:hover{ color: #333333; }
 
 /* =========================
-   HERO “PORTADA” (REFERENCIA ABSOLUTA)
-   - Mucho aire arriba
-   - Texto centrado
-   - Ilustración baja con aire premium arriba y abajo
+   TEXTO (posición vertical exacta)
+   - título top: 410/1365 = 30.037%
    ========================= */
-.hero{
-  min-height: 100vh;
-  background: #f7f4ef;
-  padding: 0 24px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Aire superior + texto centrado */
 .hero-content{
-  width: 100%;
+  position: absolute;
+  top: 30.037%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-
-  /* Aire superior editorial (la clave del look “portada”) */
-  padding-top: 200px;
+  width: 70%;
+  z-index: 5;
 }
 
-/* Título serif contenido (no enorme) */
+/* Título: serif editorial estable (webfont) */
 .hero-title{
   margin: 0;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Playfair Display", Georgia, "Times New Roman", Times, serif;
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 1.03;
   font-size: 74px;
+  color: var(--text);
 }
 
-/* Subtítulo gris con “respiración” */
+/* Subtítulo:
+   - gap título→subtítulo: 61/1365 = 4.469% del alto del lienzo
+*/
 .hero-subtitle{
-  margin: 18px 0 0;
-  color: #6f6f6f;
+  margin: 4.469% 0 0;
+  color: var(--muted);
   font-weight: 400;
   line-height: 1.2;
   font-size: 26px;
 }
 
-/* Ilustración: BAJA, con aire premium arriba y MUCHO aire abajo */
+/* =========================
+   ILUSTRACIÓN (bbox medido)
+   - top: 653/1365 = 47.844%
+   - left: 191/2048 = 9.326%
+   - width: 1741/2048 = 85.010%
+   - desplazamiento óptico: +37.5/2048 = 1.83%
+   ========================= */
 .hero-image{
-  width: min(1120px, 92vw);
+  position: absolute;
+  top: 47.844%;
+  left: 9.326%;
+  width: 85.010%;
   height: auto;
   display: block;
-
-  /* Aire entre subtítulo e ilustración (premium) */
-  margin-top: 80px;
-
-  /* Aire inferior grande para efecto “póster” */
-  margin-bottom: 170px;
+  transform: translateX(1.83%);
+  z-index: 1;
 }
 
 /* =========================
-   RESPONSIVE (manteniendo composición)
+   RESPONSIVE: solo reduce nav gap si no cabe
+   (manteniendo el lienzo exacto)
    ========================= */
 @media (max-width: 900px){
-  .site-header{ padding: 26px 28px; }
   .nav{ gap: 28px; }
   .nav a{ font-size: 16px; }
+  .hero-title{ font-size: 64px; }
+  .hero-subtitle{ font-size: 22px; }
+}
 
-  .hero-content{ padding-top: 16vh; }
-
-  .hero-title{ font-size: clamp(42px, 8vw, 64px); }
-  .hero-subtitle{ font-size: clamp(18px, 3.2vw, 24px); }
-
-  .hero-image{
-    margin-top: 7vh;
-    margin-bottom: 14vh;
-  }
+@media (max-width: 600px){
+  .hero-title{ font-size: 52px; }
+  .hero-subtitle{ font-size: 20px; }
 }
