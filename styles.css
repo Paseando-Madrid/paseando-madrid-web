@@ -1,19 +1,10 @@
-/* =========================
-   WEBFONTS (bloqueo de tipografía)
-   ========================= */
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400&display=swap");
 
-/* =========================
-   BASE / FONDO GLOBAL
-   ========================= */
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
 
 :root{
-  /* Blanco roto de referencia (base) */
-  --bg: #f7f4ef;
-
-  /* Texto */
+  --bg: #f7f4ef;      /* blanco roto referencia */
   --text: #111111;
   --muted: #6f6f6f;
 }
@@ -22,16 +13,11 @@ body{
   background: var(--bg);
   color: var(--text);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-
-  /* Mejora consistencia de rendering */
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
 }
 
-/* =========================
-   HERO centrado
-   ========================= */
+/* HERO centrado con fondo uniforme */
 .hero{
   min-height: 100vh;
   background: var(--bg);
@@ -40,14 +26,12 @@ body{
   overflow: hidden;
 }
 
-/* =========================
-   LIENZO EXACTO (2048x1365)
-   ========================= */
+/* LIENZO con la MISMA proporción exacta que la imagen (2048x1365) */
 .stage{
   position: relative;
   aspect-ratio: 2048 / 1365;
 
-  /* Se ajusta sin deformar: encaja por alto o ancho según viewport */
+  /* Encaja en pantalla manteniendo proporción */
   width: min(100vw, calc(100vh * (2048 / 1365)));
   height: auto;
 
@@ -55,41 +39,49 @@ body{
   overflow: hidden;
 }
 
-/* =========================
-   GRANO / PAPEL (para igualar la captura)
-   - Muy sutil, no “ruido digital”
-   ========================= */
+/* GRANO sutil tipo “papel” (opcional pero ayuda a igualar la captura) */
 .stage::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  /* Grano fino con mezcla suave */
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
   background:
-    radial-gradient(circle at 30% 20%, rgba(0,0,0,0.028), transparent 55%),
+    radial-gradient(circle at 30% 25%, rgba(0,0,0,0.028), transparent 55%),
     radial-gradient(circle at 70% 60%, rgba(0,0,0,0.020), transparent 58%),
     repeating-radial-gradient(circle at 50% 50%,
-      rgba(0,0,0,0.015) 0px,
-      rgba(0,0,0,0.015) 1px,
+      rgba(0,0,0,0.014) 0px,
+      rgba(0,0,0,0.014) 1px,
       rgba(255,255,255,0.0) 2px,
       rgba(255,255,255,0.0) 4px
     );
-  opacity: 0.35;              /* intensidad global del grano */
-  mix-blend-mode: multiply;   /* efecto “papel” */
-  z-index: 2;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  z-index: 3;
 }
 
-/* =========================
-   NAV (según bbox medido)
-   - top: 140/1365 = 10.256%
-   - right: 134/2048 = 6.543%
-   ========================= */
+/* ✅ LA CLAVE:
+   La ilustración ocupa TODO el hero (stage) en proporción exacta */
+.hero-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  /* Mantiene proporción SIN deformar ni recortar */
+  object-fit: contain;
+
+  /* Centrado; al tener mismo aspect-ratio, llena perfecto */
+  object-position: center;
+
+  z-index: 1;
+}
+
+/* NAV colocada como en la referencia (top/right por porcentaje) */
 .site-header{
   position: absolute;
-  top: 10.256%;
-  right: 6.543%;
-  z-index: 5;
+  top: 10.256%;   /* 140 / 1365 */
+  right: 6.543%;  /* 134 / 2048 */
+  z-index: 10;
 }
 
 .nav{
@@ -106,67 +98,39 @@ body{
   font-weight: 400;
   letter-spacing: 0.2px;
 }
+.nav a:hover{ color: #333; }
 
-.nav a:hover{ color: #333333; }
-
-/* =========================
-   TEXTO (posición vertical exacta)
-   - título top: 410/1365 = 30.037%
-   ========================= */
+/* Bloque texto (posición vertical como la referencia) */
 .hero-content{
   position: absolute;
-  top: 30.037%;
+  top: 30.037%;   /* 410 / 1365 */
   left: 50%;
   transform: translateX(-50%);
-  text-align: center;
   width: 70%;
-  z-index: 5;
+  text-align: center;
+  z-index: 10;
 }
 
-/* Título: serif editorial estable (webfont) */
 .hero-title{
   margin: 0;
-  font-family: "Playfair Display", Georgia, "Times New Roman", Times, serif;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 74px;
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 1.03;
-  font-size: 74px;
   color: var(--text);
 }
 
-/* Subtítulo:
-   - gap título→subtítulo: 61/1365 = 4.469% del alto del lienzo
-*/
 .hero-subtitle{
+  /* separación equivalente a 61px en la referencia: 61/1365 = 4.469% */
   margin: 4.469% 0 0;
-  color: var(--muted);
+  font-size: 26px;
   font-weight: 400;
   line-height: 1.2;
-  font-size: 26px;
+  color: var(--muted);
 }
 
-/* =========================
-   ILUSTRACIÓN (bbox medido)
-   - top: 653/1365 = 47.844%
-   - left: 191/2048 = 9.326%
-   - width: 1741/2048 = 85.010%
-   - desplazamiento óptico: +37.5/2048 = 1.83%
-   ========================= */
-.hero-image{
-  position: absolute;
-  top: 47.844%;
-  left: 9.326%;
-  width: 85.010%;
-  height: auto;
-  display: block;
-  transform: translateX(1.83%);
-  z-index: 1;
-}
-
-/* =========================
-   RESPONSIVE: solo reduce nav gap si no cabe
-   (manteniendo el lienzo exacto)
-   ========================= */
+/* Responsive (sin romper proporciones) */
 @media (max-width: 900px){
   .nav{ gap: 28px; }
   .nav a{ font-size: 16px; }
