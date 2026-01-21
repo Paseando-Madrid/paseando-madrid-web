@@ -17,29 +17,36 @@ body{
   text-rendering: geometricPrecision;
 }
 
-/* HERO centrado con fondo uniforme */
+/* =========================
+   HERO: a pantalla completa
+   ========================= */
 .hero{
   min-height: 100vh;
   background: var(--bg);
-  display: grid;
-  place-items: center;
   overflow: hidden;
+  position: relative;
 }
 
-/* LIENZO con la MISMA proporción exacta que la imagen (2048x1365) */
+/* =========================
+   STAGE: ocupa TODA la pantalla
+   - Elimina bandas laterales
+   - Capa fondo: la misma ilustración en cover
+   ========================= */
 .stage{
   position: relative;
-  aspect-ratio: 2048 / 1365;
-
-  /* Encaja en pantalla manteniendo proporción */
-  width: min(100vw, calc(100vh * (2048 / 1365)));
-  height: auto;
-
+  width: 100%;
+  min-height: 100vh;
   background: var(--bg);
   overflow: hidden;
+
+  /* Fondo “idéntico” a los lados: es la misma ilustración */
+  background-image: url("assets/hero/hero-illustration.png");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
-/* GRANO sutil tipo “papel” (opcional pero ayuda a igualar la captura) */
+/* GRANO sutil tipo “papel” (se mantiene) */
 .stage::before{
   content:"";
   position:absolute;
@@ -59,28 +66,32 @@ body{
   z-index: 3;
 }
 
-/* ✅ LA CLAVE:
-   La ilustración ocupa TODO el hero (stage) en proporción exacta */
+/* =========================
+   ILUSTRACIÓN:
+   - Capa superior en contain (sin deformar)
+   - Bajada para evitar solape con texto
+   ========================= */
 .hero-image{
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
 
-  /* Mantiene proporción SIN deformar ni recortar */
   object-fit: contain;
-
-  /* Centrado; al tener mismo aspect-ratio, llena perfecto */
-  object-position: center;
+  object-position: center 92%;   /* clave: baja la ilustración sin deformarla */
 
   z-index: 1;
+  pointer-events: none;
 }
 
-/* NAV colocada como en la referencia (top/right por porcentaje) */
+/* =========================
+   NAV (se mantiene estilo)
+   - Ajuste: top/right en px/vw para estabilidad en pantallas reales
+   ========================= */
 .site-header{
   position: absolute;
-  top: 10.256%;   /* 140 / 1365 */
-  right: 6.543%;  /* 134 / 2048 */
+  top: clamp(18px, 3vh, 36px);
+  right: clamp(18px, 4vw, 58px);
   z-index: 10;
 }
 
@@ -89,6 +100,7 @@ body{
   gap: 64px;
   align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .nav a{
@@ -100,13 +112,17 @@ body{
 }
 .nav a:hover{ color: #333; }
 
-/* Bloque texto (posición vertical como la referencia) */
+/* =========================
+   BLOQUE TEXTO:
+   - Ya no depende de % del lienzo (evita solape)
+   - Mantiene estética editorial
+   ========================= */
 .hero-content{
   position: absolute;
-  top: 30.037%;   /* 410 / 1365 */
+  top: clamp(140px, 18vh, 230px);
   left: 50%;
   transform: translateX(-50%);
-  width: 70%;
+  width: min(70%, 980px);
   text-align: center;
   z-index: 10;
 }
@@ -122,15 +138,16 @@ body{
 }
 
 .hero-subtitle{
-  /* separación equivalente a 61px en la referencia: 61/1365 = 4.469% */
-  margin: 4.469% 0 0;
+  margin: clamp(14px, 1.2vh, 20px) 0 0; /* estable y “premium” */
   font-size: 26px;
   font-weight: 400;
   line-height: 1.2;
   color: var(--muted);
 }
 
-/* Responsive (sin romper proporciones) */
+/* =========================
+   RESPONSIVE
+   ========================= */
 @media (max-width: 900px){
   .nav{ gap: 28px; }
   .nav a{ font-size: 16px; }
@@ -141,4 +158,8 @@ body{
 @media (max-width: 600px){
   .hero-title{ font-size: 52px; }
   .hero-subtitle{ font-size: 20px; }
+  .hero-content{
+    top: 16vh;
+    width: 88%;
+  }
 }
