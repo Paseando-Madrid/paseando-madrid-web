@@ -1,0 +1,20 @@
+/* PASO 1: CSS base para comprobar que carga */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: #ffffff;
+  color: #111111;
+}
+
+/* Si esto carga, el fondo y los links cambian */
+a {
+  color: #6f6f6f;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+a:hover {
+  color: #333333;
+}
