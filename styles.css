@@ -7,18 +7,29 @@ html, body { height: 100%; }
 :root{
   --text: #111111;
   --muted: #6f6f6f;
+
+  /* Fondo marfil */
+  --ivory: #f3eee4;
+
+  /* Ajustes finos */
   --nav-gap: 64px;
 
-  /* Ajustes finos (si quieres cambiar algo, cambia SOLO estas 4 líneas) */
-  --hero-top: clamp(110px, 17.5vh, 195px);     /* baja/sube el bloque de texto */
-  --sub-gap: clamp(10px, 0.9vw, 14px);         /* separación título → subtítulo */
-  --img-bottom: clamp(18px, 2vh, 34px);        /* sube/baja la ilustración */
-  --img-width: min(1120px, 92vw);              /* tamaño ilustración */
+  /* Baja/sube el bloque de texto */
+  --hero-top: clamp(110px, 17.5vh, 195px);
+
+  /* Separación título → subtítulo */
+  --sub-gap: clamp(10px, 0.9vw, 14px);
+
+  /* BAJA la ilustración para dar “aire premium” (más distancia subtítulo → skyline) */
+  --img-bottom: clamp(0px, 0.4vh, 8px);
+
+  /* Tamaño ilustración */
+  --img-width: min(1120px, 92vw);
 }
 
 body{
   margin: 0;
-  background: #ffffff;
+  background: var(--ivory);   /* marfil en toda la página */
   color: var(--text);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
@@ -60,6 +71,7 @@ body{
   min-height: 100vh;
   overflow: hidden;
   padding: 0 24px;
+  background: var(--ivory);   /* asegura marfil también dentro del hero */
 }
 
 .hero-content{
@@ -86,6 +98,7 @@ body{
   font-size: clamp(18px, 2vw, 28px);
 }
 
+/* Ilustración anclada abajo */
 .hero-image{
   position: absolute;
   left: 50%;
@@ -102,6 +115,7 @@ body{
 @media (max-width: 520px){
   :root{
     --hero-top: 16vh;
-    --img-bottom: 12px;
+    --img-bottom: 0px;
+    --img-width: 92vw;
   }
 }
