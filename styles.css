@@ -29,8 +29,8 @@ body{
 
 /* =========================
    STAGE: ocupa TODA la pantalla
-   - Elimina bandas laterales
-   - Capa fondo: la misma ilustración en cover
+   - Fondo base liso
+   - El "relleno" se hace en ::after (blur) para evitar trozos
    ========================= */
 .stage{
   position: relative;
@@ -38,12 +38,28 @@ body{
   min-height: 100vh;
   background: var(--bg);
   overflow: hidden;
+}
 
-  /* Fondo “idéntico” a los lados: es la misma ilustración */
+/* RELLENO LATERAL PREMIUM (sin "trozos" reconocibles) */
+.stage::after{
+  content:"";
+  position:absolute;
+  inset:-6%;
+  z-index: 0;
+  pointer-events:none;
+
   background-image: url("assets/hero/hero-illustration.png");
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
+
+  filter: blur(22px);
+  opacity: 0.14;
+  transform: scale(1.10);
+
+  /* Hace que el blur sea más “ambiental” y no se noten formas en los bordes */
+  -webkit-mask-image: radial-gradient(circle at 50% 55%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 72%);
+  mask-image: radial-gradient(circle at 50% 55%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 72%);
 }
 
 /* GRANO sutil tipo “papel” (se mantiene) */
@@ -67,9 +83,9 @@ body{
 }
 
 /* =========================
-   ILUSTRACIÓN:
-   - Capa superior en contain (sin deformar)
-   - Bajada para evitar solape con texto
+   ILUSTRACIÓN (capa principal)
+   - Mantiene proporción
+   - Más abajo para dar aire al texto
    ========================= */
 .hero-image{
   position: absolute;
@@ -78,15 +94,14 @@ body{
   height: 100%;
 
   object-fit: contain;
-  object-position: center 92%;   /* clave: baja la ilustración sin deformarla */
+  object-position: center 96%;   /* más abajo = más aire */
 
   z-index: 1;
   pointer-events: none;
 }
 
 /* =========================
-   NAV (se mantiene estilo)
-   - Ajuste: top/right en px/vw para estabilidad en pantallas reales
+   NAV
    ========================= */
 .site-header{
   position: absolute;
@@ -113,18 +128,22 @@ body{
 .nav a:hover{ color: #333; }
 
 /* =========================
-   BLOQUE TEXTO:
-   - Ya no depende de % del lienzo (evita solape)
-   - Mantiene estética editorial
+   BLOQUE TEXTO (más alto + más aire)
    ========================= */
 .hero-content{
   position: absolute;
-  top: clamp(140px, 18vh, 230px);
+
+  /* Subimos el bloque un poco para separar del skyline */
+  top: clamp(120px, 16vh, 210px);
+
   left: 50%;
   transform: translateX(-50%);
   width: min(70%, 980px);
   text-align: center;
   z-index: 10;
+
+  /* “colchón” inferior editorial */
+  padding-bottom: clamp(16px, 2.2vh, 34px);
 }
 
 .hero-title{
@@ -138,7 +157,7 @@ body{
 }
 
 .hero-subtitle{
-  margin: clamp(14px, 1.2vh, 20px) 0 0; /* estable y “premium” */
+  margin: clamp(14px, 1.2vh, 20px) 0 0;
   font-size: 26px;
   font-weight: 400;
   line-height: 1.2;
@@ -159,7 +178,7 @@ body{
   .hero-title{ font-size: 52px; }
   .hero-subtitle{ font-size: 20px; }
   .hero-content{
-    top: 16vh;
+    top: 15vh;
     width: 88%;
   }
 }
