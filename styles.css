@@ -1,20 +1,107 @@
-/* PASO 1: CSS base para comprobar que carga */
+/* =========================
+   BASE / RESET
+   ========================= */
 * { box-sizing: border-box; }
+html, body { height: 100%; }
 
-body {
+:root{
+  --text: #111111;
+  --muted: #6f6f6f;
+  --nav-gap: 64px;
+
+  /* Ajustes finos (si quieres cambiar algo, cambia SOLO estas 4 líneas) */
+  --hero-top: clamp(110px, 17.5vh, 195px);     /* baja/sube el bloque de texto */
+  --sub-gap: clamp(10px, 0.9vw, 14px);         /* separación título → subtítulo */
+  --img-bottom: clamp(18px, 2vh, 34px);        /* sube/baja la ilustración */
+  --img-width: min(1120px, 92vw);              /* tamaño ilustración */
+}
+
+body{
   margin: 0;
-  font-family: system-ui, Arial, sans-serif;
   background: #ffffff;
-  color: #111111;
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-/* Si esto carga, el fondo y los links cambian */
-a {
-  color: #6f6f6f;
+/* =========================
+   NAV (arriba derecha)
+   ========================= */
+.site-header{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: clamp(18px, 2.6vw, 36px) clamp(18px, 4vw, 58px);
+  z-index: 10;
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(18px, 4vw, var(--nav-gap));
+  flex-wrap: wrap;
+}
+
+.nav a{
+  color: var(--muted);
   text-decoration: none;
-  margin-right: 20px;
+  font-size: clamp(16px, 1.2vw, 18px);
+  font-weight: 400;
+  letter-spacing: 0.2px;
 }
 
-a:hover {
-  color: #333333;
+.nav a:hover{ color: #333333; }
+
+/* =========================
+   HERO (tipo portada)
+   ========================= */
+.hero{
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 0 24px;
+}
+
+.hero-content{
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-top: var(--hero-top);
+}
+
+.hero-title{
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1.03;
+  font-size: clamp(46px, 5.3vw, 82px);
+}
+
+.hero-subtitle{
+  margin: var(--sub-gap) 0 0;
+  color: var(--muted);
+  font-weight: 400;
+  line-height: 1.2;
+  font-size: clamp(18px, 2vw, 28px);
+}
+
+.hero-image{
+  position: absolute;
+  left: 50%;
+  bottom: var(--img-bottom);
+  transform: translateX(-50%);
+  width: var(--img-width);
+  height: auto;
+  z-index: 1;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 520px){
+  :root{
+    --hero-top: 16vh;
+    --img-bottom: 12px;
+  }
 }
