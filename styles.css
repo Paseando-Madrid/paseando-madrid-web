@@ -4,181 +4,85 @@
 html, body { height: 100%; margin: 0; }
 
 :root{
-  --bg: #f7f4ef;      /* blanco roto referencia */
   --text: #111111;
   --muted: #6f6f6f;
 }
 
 body{
-  background: var(--bg);
-  color: var(--text);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: #000; /* nunca visible */
   -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
 }
 
-/* =========================
-   HERO: a pantalla completa
-   ========================= */
+/* HERO */
 .hero{
   min-height: 100vh;
-  background: var(--bg);
-  overflow: hidden;
   position: relative;
-}
-
-/* =========================
-   STAGE: ocupa TODA la pantalla
-   - Fondo base liso
-   - El "relleno" se hace en ::after (blur) para evitar trozos
-   ========================= */
-.stage{
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background: var(--bg);
   overflow: hidden;
-}
-
-/* RELLENO LATERAL PREMIUM (sin "trozos" reconocibles) */
-.stage::after{
-  content:"";
-  position:absolute;
-  inset:-6%;
-  z-index: 0;
-  pointer-events:none;
 
   background-image: url("assets/hero/hero-illustration.png");
-  background-size: cover;
-  background-position: center bottom;
   background-repeat: no-repeat;
-
-  filter: blur(22px);
-  opacity: 0.14;
-  transform: scale(1.10);
-
-  /* Hace que el blur sea más “ambiental” y no se noten formas en los bordes */
-  -webkit-mask-image: radial-gradient(circle at 50% 55%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 72%);
-  mask-image: radial-gradient(circle at 50% 55%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 72%);
+  background-position: center bottom;
+  background-size: cover;
 }
 
-/* GRANO sutil tipo “papel” (se mantiene) */
-.stage::before{
+/* GRANO */
+.hero::before{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
   background:
-    radial-gradient(circle at 30% 25%, rgba(0,0,0,0.028), transparent 55%),
-    radial-gradient(circle at 70% 60%, rgba(0,0,0,0.020), transparent 58%),
     repeating-radial-gradient(circle at 50% 50%,
-      rgba(0,0,0,0.014) 0px,
-      rgba(0,0,0,0.014) 1px,
-      rgba(255,255,255,0.0) 2px,
-      rgba(255,255,255,0.0) 4px
+      rgba(0,0,0,0.015) 0px,
+      rgba(0,0,0,0.015) 1px,
+      rgba(255,255,255,0) 3px,
+      rgba(255,255,255,0) 6px
     );
-  opacity: 0.35;
+  opacity: 0.25;
   mix-blend-mode: multiply;
-  z-index: 3;
-}
-
-/* =========================
-   ILUSTRACIÓN (capa principal)
-   - Mantiene proporción
-   - Más abajo para dar aire al texto
-   ========================= */
-.hero-image{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-
-  object-fit: contain;
-  object-position: center 96%;   /* más abajo = más aire */
-
   z-index: 1;
-  pointer-events: none;
 }
 
-/* =========================
-   NAV
-   ========================= */
+/* NAV */
 .site-header{
   position: absolute;
-  top: clamp(18px, 3vh, 36px);
-  right: clamp(18px, 4vw, 58px);
+  top: clamp(20px, 3vh, 40px);
+  right: clamp(20px, 4vw, 60px);
   z-index: 10;
 }
 
-.nav{
-  display: flex;
-  gap: 64px;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-}
-
-.nav a{
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 0.2px;
-}
-.nav a:hover{ color: #333; }
-
-/* =========================
-   BLOQUE TEXTO (más alto + más aire)
-   ========================= */
+/* TEXTO */
 .hero-content{
   position: absolute;
-
-  /* Subimos el bloque un poco para separar del skyline */
-  top: clamp(120px, 16vh, 210px);
-
+  top: clamp(140px, 18vh, 240px);
   left: 50%;
   transform: translateX(-50%);
   width: min(70%, 980px);
   text-align: center;
   z-index: 10;
-
-  /* “colchón” inferior editorial */
-  padding-bottom: clamp(16px, 2.2vh, 34px);
 }
 
 .hero-title{
-  margin: 0;
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-family: "Playfair Display", Georgia, serif;
   font-size: 74px;
   font-weight: 600;
   letter-spacing: 1px;
-  line-height: 1.03;
-  color: var(--text);
+  margin: 0;
 }
 
 .hero-subtitle{
-  margin: clamp(14px, 1.2vh, 20px) 0 0;
+  margin-top: clamp(22px, 3vh, 36px);
   font-size: 26px;
-  font-weight: 400;
-  line-height: 1.2;
   color: var(--muted);
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+/* RESPONSIVE */
 @media (max-width: 900px){
-  .nav{ gap: 28px; }
-  .nav a{ font-size: 16px; }
   .hero-title{ font-size: 64px; }
   .hero-subtitle{ font-size: 22px; }
 }
-
 @media (max-width: 600px){
   .hero-title{ font-size: 52px; }
-  .hero-subtitle{ font-size: 20px; }
-  .hero-content{
-    top: 15vh;
-    width: 88%;
-  }
 }
