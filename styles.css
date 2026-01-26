@@ -4,14 +4,15 @@
 html, body { height: 100%; margin: 0; }
 
 :root{
+  --bg: #f6f3ee;
   --text: #111111;
   --muted: #6f6f6f;
 }
 
 body{
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  font-family: Inter, system-ui, sans-serif;
   color: var(--text);
-  background: #000; /* nunca visible */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -20,15 +21,33 @@ body{
   min-height: 100vh;
   position: relative;
   overflow: hidden;
+}
 
+/* STAGE */
+.stage{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* RELLENO BLUR */
+.stage::after{
+  content:"";
+  position:absolute;
+  inset:-8%;
+  z-index:0;
   background-image: url("assets/hero/hero-illustration.png");
-  background-repeat: no-repeat;
-  background-position: center bottom;
   background-size: cover;
+  background-position: center bottom;
+  filter: blur(26px);
+  opacity: 0.10;
+  transform: scale(1.12);
 }
 
 /* GRANO */
-.hero::before{
+.stage::before{
   content:"";
   position:absolute;
   inset:0;
@@ -40,49 +59,59 @@ body{
       rgba(255,255,255,0) 3px,
       rgba(255,255,255,0) 6px
     );
-  opacity: 0.25;
+  opacity: 0.35;
   mix-blend-mode: multiply;
-  z-index: 1;
+  z-index:3;
+}
+
+/* ILUSTRACIÓN */
+.hero-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit: contain;
+  object-position: center 98%;
+  z-index:1;
+  pointer-events:none;
 }
 
 /* NAV */
 .site-header{
-  position: absolute;
+  position:absolute;
   top: clamp(20px, 3vh, 40px);
   right: clamp(20px, 4vw, 60px);
-  z-index: 10;
+  z-index:10;
 }
 
 /* TEXTO */
 .hero-content{
-  position: absolute;
-  top: clamp(140px, 18vh, 240px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(70%, 980px);
-  text-align: center;
-  z-index: 10;
+  position:absolute;
+  top: clamp(120px, 14vh, 210px);
+  left:50%;
+  transform:translateX(-50%);
+  width:min(70%,980px);
+  text-align:center;
+  z-index:10;
 }
 
 .hero-title{
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 74px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin: 0;
+  font-family:"Playfair Display", Georgia, serif;
+  font-size:74px;
+  margin:0;
 }
 
 .hero-subtitle{
   margin-top: clamp(22px, 3vh, 36px);
-  font-size: 26px;
-  color: var(--muted);
+  font-size:26px;
+  color:var(--muted);
 }
 
 /* RESPONSIVE */
 @media (max-width: 900px){
-  .hero-title{ font-size: 64px; }
-  .hero-subtitle{ font-size: 22px; }
+  .hero-title{ font-size:64px; }
+  .hero-subtitle{ font-size:22px; }
 }
 @media (max-width: 600px){
-  .hero-title{ font-size: 52px; }
+  .hero-title{ font-size:52px; }
 }
