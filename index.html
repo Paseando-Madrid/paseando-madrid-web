@@ -8,8 +8,10 @@
   </head>
 
   <body>
+    <a class="skip-link" href="#tours">Saltar a contenido</a>
+
     <main class="hero" id="inicio">
-      <div class="stage">
+      <div class="stage" role="presentation">
         <header class="site-header">
           <nav class="nav" aria-label="Navegación principal">
             <a href="#inicio">Inicio</a>
@@ -34,8 +36,103 @@
       </div>
     </main>
 
-    <section id="tours"></section>
-    <section id="sobre"></section>
-    <section id="contacto"></section>
+    <section class="section" id="tours" aria-label="Tours">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 class="section-title">Tours</h2>
+          <p class="section-lede">
+            Recorridos culturales con narrativa, contexto y detalle. Madrid leído como ciudad, no como postal.
+          </p>
+        </header>
+
+        <div class="grid">
+          <article class="card">
+            <h3 class="card-title">Madrid esencial</h3>
+            <p class="card-text">Un paseo de fundamentos: plazas, ejes históricos y claves para entender la ciudad.</p>
+            <dl class="meta">
+              <div><dt>Duración</dt><dd>2 h</dd></div>
+              <div><dt>Ritmo</dt><dd>Tranquilo</dd></div>
+              <div><dt>Inicio</dt><dd>Centro</dd></div>
+            </dl>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title">Barrios con historia</h3>
+            <p class="card-text">Capas urbanas y memoria: cómo la ciudad se escribe por barrios.</p>
+            <dl class="meta">
+              <div><dt>Duración</dt><dd>2–2,5 h</dd></div>
+              <div><dt>Ritmo</dt><dd>Medio</dd></div>
+              <div><dt>Inicio</dt><dd>Según ruta</dd></div>
+            </dl>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title">Madrid de leyenda</h3>
+            <p class="card-text">Relatos, tradición y atmósfera. Una mirada nocturna y narrativa (sin “show turístico”).</p>
+            <dl class="meta">
+              <div><dt>Duración</dt><dd>1,5–2 h</dd></div>
+              <div><dt>Ritmo</dt><dd>Tranquilo</dd></div>
+              <div><dt>Inicio</dt><dd>Centro</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre" aria-label="Sobre nosotros">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 class="section-title">Sobre nosotros</h2>
+          <p class="section-lede">
+            Paseando Madrid nace de la investigación, la escena y la ciudad vivida. Tours con rigor, ritmo y escucha.
+          </p>
+        </header>
+
+        <div class="prose">
+          <p>
+            Aquí no vendemos “lo típico”. Construimos una experiencia cultural: referencias, contexto, detalles,
+            arquitectura y pequeñas historias que sostienen lo grande.
+          </p>
+          <p>
+            Si buscas una visita con sensibilidad editorial —como abrir un libro caminando— este es tu sitio.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacto" aria-label="Contacto">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 class="section-title">Contacto</h2>
+          <p class="section-lede">
+            Para reservas privadas, grupos o propuestas, escríbenos. Respuesta rápida y clara.
+          </p>
+        </header>
+
+        <div class="contact">
+          <div class="contact-block">
+            <h3 class="contact-title">Email</h3>
+            <p class="contact-text">
+              <a class="link" href="mailto:info@paseandomadrid.com">info@paseandomadrid.com</a>
+            </p>
+          </div>
+
+          <div class="contact-block">
+            <h3 class="contact-title">WhatsApp</h3>
+            <p class="contact-text">
+              <a class="link" href="#" aria-label="WhatsApp (añade tu enlace)">Añadir enlace</a>
+            </p>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <p class="footer-text">© <span id="year"></span> Paseando Madrid</p>
+        </footer>
+      </div>
+    </section>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
