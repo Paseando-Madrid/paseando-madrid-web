@@ -8,10 +8,8 @@
   </head>
 
   <body>
-    <a class="skip-link" href="#tours">Saltar a contenido</a>
-
     <main class="hero" id="inicio">
-      <div class="stage" role="presentation">
+      <div class="stage">
         <header class="site-header">
           <nav class="nav" aria-label="Navegación principal">
             <a href="#inicio">Inicio</a>
@@ -26,113 +24,99 @@
           <p class="hero-subtitle">Tours culturales</p>
         </div>
 
-        <img
-          class="hero-image"
-          src="assets/hero/hero-illustration.png"
-          alt="Ilustración lineal del skyline de Madrid con una figura caminando"
-          loading="eager"
-          decoding="async"
-        />
+        <div class="hero-art" aria-hidden="true">
+          <img
+            class="hero-image"
+            src="assets/hero/hero-illustration.png"
+            alt=""
+            loading="eager"
+            decoding="async"
+          />
+        </div>
       </div>
     </main>
 
-    <section class="section" id="tours" aria-label="Tours">
-      <div class="wrap">
+    <section class="section" id="tours">
+      <div class="container">
         <header class="section-head">
           <h2 class="section-title">Tours</h2>
-          <p class="section-lede">
-            Recorridos culturales con narrativa, contexto y detalle. Madrid leído como ciudad, no como postal.
-          </p>
+          <p class="section-subtitle">Seis recorridos curados, culturales y editoriales — sin “típicos” guiones turísticos.</p>
         </header>
 
-        <div class="grid">
-          <article class="card">
-            <h3 class="card-title">Madrid esencial</h3>
-            <p class="card-text">Un paseo de fundamentos: plazas, ejes históricos y claves para entender la ciudad.</p>
-            <dl class="meta">
-              <div><dt>Duración</dt><dd>2 h</dd></div>
-              <div><dt>Ritmo</dt><dd>Tranquilo</dd></div>
-              <div><dt>Inicio</dt><dd>Centro</dd></div>
-            </dl>
+        <div class="tours-grid">
+          <article class="tour-card">
+            <h3 class="tour-title">Madrid de los Austrias</h3>
+            <p class="tour-desc">Plazas, callejones y ceremonias de una capital que se inventa a sí misma.</p>
+            <div class="tour-meta">
+              <span>2 h</span><span>Centro</span><span>Historia</span>
+            </div>
           </article>
 
-          <article class="card">
-            <h3 class="card-title">Barrios con historia</h3>
-            <p class="card-text">Capas urbanas y memoria: cómo la ciudad se escribe por barrios.</p>
-            <dl class="meta">
-              <div><dt>Duración</dt><dd>2–2,5 h</dd></div>
-              <div><dt>Ritmo</dt><dd>Medio</dd></div>
-              <div><dt>Inicio</dt><dd>Según ruta</dd></div>
-            </dl>
+          <article class="tour-card">
+            <h3 class="tour-title">Barrio de las Letras</h3>
+            <p class="tour-desc">Literatura, imprentas, cafés y duelo de estilos: Lope, Cervantes y la ciudad viva.</p>
+            <div class="tour-meta">
+              <span>2 h</span><span>Centro</span><span>Literario</span>
+            </div>
           </article>
 
-          <article class="card">
-            <h3 class="card-title">Madrid de leyenda</h3>
-            <p class="card-text">Relatos, tradición y atmósfera. Una mirada nocturna y narrativa (sin “show turístico”).</p>
-            <dl class="meta">
-              <div><dt>Duración</dt><dd>1,5–2 h</dd></div>
-              <div><dt>Ritmo</dt><dd>Tranquilo</dd></div>
-              <div><dt>Inicio</dt><dd>Centro</dd></div>
-            </dl>
+          <article class="tour-card">
+            <h3 class="tour-title">Malasaña &amp; Movida</h3>
+            <p class="tour-desc">Contracultura, arquitectura doméstica y capas de barrio: de conventos a vinilos.</p>
+            <div class="tour-meta">
+              <span>2 h</span><span>Centro</span><span>Urbano</span>
+            </div>
+          </article>
+
+          <article class="tour-card">
+            <h3 class="tour-title">Madrid Secreto</h3>
+            <p class="tour-desc">Pasajes, patios, símbolos y detalles que pasan desapercibidos incluso para madrileños.</p>
+            <div class="tour-meta">
+              <span>2 h</span><span>Centro</span><span>Curiosidades</span>
+            </div>
+          </article>
+
+          <article class="tour-card">
+            <h3 class="tour-title">Nocturno de Leyendas</h3>
+            <p class="tour-desc">Narrativa, atmósfera y verdad histórica: la ciudad cuando baja la luz.</p>
+            <div class="tour-meta">
+              <span>2 h</span><span>Noche</span><span>Leyendas</span>
+            </div>
+          </article>
+
+          <article class="tour-card">
+            <h3 class="tour-title">Arte &amp; Ejes Clásicos</h3>
+            <p class="tour-desc">Del Paseo del Prado al pulso monumental: composiciones, símbolos y poder.</p>
+            <div class="tour-meta">
+              <span>2–2,5 h</span><span>Prado</span><span>Arte</span>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="sobre" aria-label="Sobre nosotros">
-      <div class="wrap">
+    <section class="section" id="sobre">
+      <div class="container">
         <header class="section-head">
           <h2 class="section-title">Sobre nosotros</h2>
-          <p class="section-lede">
-            Paseando Madrid nace de la investigación, la escena y la ciudad vivida. Tours con rigor, ritmo y escucha.
-          </p>
+          <p class="section-subtitle">Cultura, relato y precisión histórica. Una mirada contemporánea sin perder el rigor.</p>
         </header>
-
-        <div class="prose">
-          <p>
-            Aquí no vendemos “lo típico”. Construimos una experiencia cultural: referencias, contexto, detalles,
-            arquitectura y pequeñas historias que sostienen lo grande.
-          </p>
-          <p>
-            Si buscas una visita con sensibilidad editorial —como abrir un libro caminando— este es tu sitio.
-          </p>
-        </div>
       </div>
     </section>
 
-    <section class="section" id="contacto" aria-label="Contacto">
-      <div class="wrap">
+    <section class="section" id="contacto">
+      <div class="container">
         <header class="section-head">
           <h2 class="section-title">Contacto</h2>
-          <p class="section-lede">
-            Para reservas privadas, grupos o propuestas, escríbenos. Respuesta rápida y clara.
-          </p>
+          <p class="section-subtitle">Reservas privadas, grupos y consultas.</p>
         </header>
-
-        <div class="contact">
-          <div class="contact-block">
-            <h3 class="contact-title">Email</h3>
-            <p class="contact-text">
-              <a class="link" href="mailto:info@paseandomadrid.com">info@paseandomadrid.com</a>
-            </p>
-          </div>
-
-          <div class="contact-block">
-            <h3 class="contact-title">WhatsApp</h3>
-            <p class="contact-text">
-              <a class="link" href="#" aria-label="WhatsApp (añade tu enlace)">Añadir enlace</a>
-            </p>
-          </div>
-        </div>
-
-        <footer class="footer">
-          <p class="footer-text">© <span id="year"></span> Paseando Madrid</p>
-        </footer>
       </div>
     </section>
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>© Paseando Madrid</span>
+      </div>
+    </footer>
   </body>
 </html>
